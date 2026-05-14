@@ -1,0 +1,122 @@
+.footer {
+  background: var(--green-deep);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0 30px;
+
+  &__bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -24px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    font-size: clamp(120px, 22vw, 320px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: rgba(255, 255, 255, 0.05);
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  &__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 56px;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 720px) {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 56px;
+    }
+  }
+
+  &__brand {
+    p {
+      font-family: var(--script);
+      font-size: 28px;
+      color: var(--magenta-soft);
+      margin: 18px 0 24px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+
+      a {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.25s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  h4 {
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 18px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+
+    a:hover {
+      color: var(--magenta-soft);
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    z-index: 1;
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.04em;
+  }
+
+  &__legal {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+
+    a:hover {
+      color: #fff;
+    }
+  }
+}

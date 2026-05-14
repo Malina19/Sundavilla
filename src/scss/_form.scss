@@ -1,0 +1,221 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 36px;
+
+    .script {
+      font-size: 28px;
+    }
+
+    h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(28px, 3.6vw, 40px);
+      margin: 0;
+    }
+  }
+
+  &__row {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+
+    &.two {
+      @media (min-width: 640px) {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
+      }
+    }
+  }
+
+  &__submit {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .status {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    padding: 14px 18px;
+    border-radius: 4px;
+
+    &.show {
+      display: inline-flex;
+    }
+
+    &.is-success {
+      background: rgba(15, 77, 63, 0.08);
+      color: var(--green);
+    }
+
+    &.is-error {
+      background: rgba(233, 30, 99, 0.1);
+      color: var(--magenta);
+    }
+  }
+
+  .check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.field {
+  position: relative;
+  padding: 20px 0 14px;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.25s ease;
+
+  label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 10px;
+    transition: color 0.25s ease;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 16px;
+    color: var(--ink);
+    outline: none;
+    font-family: var(--sans);
+    appearance: none;
+    line-height: 1.4;
+
+    &::placeholder {
+      color: rgba(28, 28, 28, 0.35);
+    }
+  }
+
+  select {
+    padding-right: 24px;
+    cursor: pointer;
+
+    &:invalid {
+      color: rgba(28, 28, 28, 0.45);
+    }
+
+    option {
+      color: var(--ink);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+  }
+
+  .req {
+    color: var(--magenta);
+  }
+
+  .err {
+    display: none;
+    font-size: 12px;
+    color: var(--magenta);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  &:focus-within {
+    border-bottom-color: var(--ink);
+
+    label {
+      color: var(--ink);
+    }
+  }
+
+  &.has-error {
+    border-bottom-color: var(--magenta);
+
+    label {
+      color: var(--magenta);
+    }
+
+    .err {
+      display: block;
+    }
+  }
+
+  &--select::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    bottom: 22px;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  &--date input {
+    color-scheme: light;
+  }
+}
+
+// Padding fix for second field in two-column layout
+.form__row.two .field + .field {
+  padding-left: 0;
+
+  @media (min-width: 640px) {
+    padding-left: 24px;
+  }
+}
+
+.form__row.two .field + .field.field--select::after {
+  right: 4px;
+}
+
+.checkbox {
+  margin: 24px 0 32px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  cursor: pointer;
+
+  input {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    accent-color: var(--magenta);
+    flex-shrink: 0;
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+
+  &.has-error {
+    color: var(--magenta);
+  }
+}

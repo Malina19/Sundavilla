@@ -1,0 +1,20 @@
+:root {
+  --green:        #0F4D3F;
+  --green-deep:   #0A3329;
+  --magenta:      #E91E63;
+  --magenta-soft: #ff5e93;
+  --cream:        #FAF5EE;
+  --cream-2:      #f1e9d9;
+  --white:        #FFFFFF;
+  --ink:          #1A1A1A;
+  --ink-mute:     #6B6B6B;
+  --line:         rgba(15, 77, 63, 0.14);
+
+  --display:  "Fraunces", "Times New Roman", serif;
+  --sans:     "Satoshi", "Manrope", -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --script:   "Caveat", cursive;
+
+  --header-h: 80px;
+  --container: 1320px;
+  --easing:   cubic-bezier(.2, .7, .2, 1);
+}

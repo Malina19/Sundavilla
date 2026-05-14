@@ -1,0 +1,93 @@
+.gallery {
+  background: var(--cream);
+  padding: 140px 0;
+
+  @media (min-width: 1024px) {
+    padding: 180px 0;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 32px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(40px, 5.4vw, 72px);
+      max-width: 16ch;
+
+      em {
+        font-style: italic;
+        font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+        color: var(--magenta);
+      }
+    }
+
+    .script {
+      font-size: 22px;
+    }
+  }
+
+  &__grid {
+    columns: 1;
+    column-gap: 18px;
+
+    @media (min-width: 640px) {
+      columns: 2;
+    }
+
+    @media (min-width: 1024px) {
+      columns: 3;
+      column-gap: 24px;
+    }
+  }
+
+  &__item {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    background: var(--cream-2);
+    display: block;
+    cursor: pointer;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 24px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 1s var(--easing), filter 0.4s ease;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--magenta);
+      mix-blend-mode: multiply;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    &:hover img {
+      transform: scale(1.04);
+    }
+
+    &:hover::after {
+      opacity: 0.2;
+    }
+  }
+}
+
+// PhotoSwipe override
+.pswp {
+  --pswp-bg: #0a1916;
+}

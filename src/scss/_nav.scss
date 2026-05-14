@@ -1,0 +1,170 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  padding: 22px 0;
+  transition: background 0.35s ease, padding 0.35s ease, color 0.35s ease,
+              box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  &.is-solid {
+    background: rgba(250, 245, 238, 0.85);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    padding: 14px 0;
+    box-shadow: 0 1px 0 var(--line);
+  }
+
+  &__menu {
+    display: none;
+    gap: 36px;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+
+    a {
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      position: relative;
+      padding: 4px 0;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s var(--easing);
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  .nav__cta {
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: inline-flex;
+    }
+  }
+}
+
+// Logo
+.logo {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--green);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .da {
+    color: var(--magenta);
+  }
+
+  .kwiaty {
+    font-family: var(--script);
+    font-size: 18px;
+    color: var(--green);
+    margin-top: -2px;
+    font-weight: 600;
+    align-self: center;
+  }
+
+  &--light,
+  &--light .kwiaty {
+    color: var(--cream);
+  }
+
+  &--light .da {
+    color: var(--magenta-soft);
+  }
+}
+
+// Hamburger
+.hamburger {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  &.is-open {
+    span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    span:nth-child(2) { opacity: 0; }
+    span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  }
+}
+
+// Mobile menu
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--green-deep);
+  color: var(--cream);
+  z-index: 55;
+  padding: 110px 28px 40px;
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform 0.55s var(--easing), visibility 0s linear 0.55s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+
+  &.is-open {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.55s var(--easing), visibility 0s linear 0s;
+  }
+
+  a {
+    font-family: var(--display);
+    font-size: 38px;
+    line-height: 1.1;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--cream);
+  }
+
+  .cta {
+    margin-top: 30px;
+    align-self: flex-start;
+  }
+}

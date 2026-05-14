@@ -1,0 +1,14 @@
+{
+  "name": "sundavilla-kwiaciarnia",
+  "version": "1.0.0",
+  "description": "Strona kwiaciarni Sundavilla — Kraków",
+  "scripts": {
+    "build:css": "sass src/scss/main.scss dist/css/main.css --style=compressed",
+    "watch:css": "sass --watch src/scss/main.scss dist/css/main.css",
+    "build": "npm run build:css",
+    "dev": "npm run watch:css"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

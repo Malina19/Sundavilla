@@ -1,0 +1,34 @@
+// ─────────────────────────────────────────────
+//  Sundavilla — main stylesheet entry point
+//  Compile:  sass src/scss/main.scss dist/css/main.css
+// ─────────────────────────────────────────────
+
+// 1. Design tokens (CSS custom properties)
+@use 'variables';
+
+// 2. Reset + base typography + layout helpers
+@use 'base';
+
+// 3. Scroll-reveal animations + grain overlay
+@use 'animations';
+
+// 4. Custom cursor
+@use 'cursor';
+
+// 5. Navigation + mobile menu
+@use 'nav';
+
+// 6. Button system
+@use 'buttons';
+
+// 7. Sections
+@use 'hero';
+@use 'marquee';
+@use 'about';
+@use 'offer';
+@use 'gallery';
+@use 'reviews';
+@use 'divider';
+@use 'contact';
+@use 'form';
+@use 'footer';

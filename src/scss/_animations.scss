@@ -1,0 +1,96 @@
+// Grain overlay
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1.6s steps(4) infinite;
+}
+
+@keyframes grain {
+  0%,
+  100% { transform: translate(0, 0); }
+  25%   { transform: translate(-4%, 2%); }
+  50%   { transform: translate(3%, -3%); }
+  75%   { transform: translate(-2%, 4%); }
+}
+
+// Scroll-reveal helpers
+.mask-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1;
+
+  > .inner {
+    display: inline-block;
+    transform: translateY(110%);
+  }
+}
+
+.is-ready .mask-line > .inner {
+  transform: translateY(0);
+  transition: transform 1.1s var(--easing);
+}
+
+.word-stagger .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+
+  > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 0.9s var(--easing);
+  }
+}
+
+.word-stagger.is-on .word > span {
+  transform: translateY(0);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s var(--easing), transform 0.9s var(--easing);
+
+  &.is-on {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.3s var(--easing);
+
+  &.is-on {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .mask-line > .inner,
+  .word-stagger .word > span {
+    transform: none;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+
+  .clip-reveal {
+    clip-path: none;
+  }
+
+  .grain {
+    animation: none;
+  }
+}

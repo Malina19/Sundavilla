@@ -1,0 +1,82 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.4s var(--easing), background 0.3s ease,
+              color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  will-change: transform;
+
+  &-primary {
+    background: var(--magenta);
+    color: #fff;
+
+    &:hover {
+      background: var(--magenta);
+    }
+  }
+
+  &-outline {
+    border: 1px solid currentColor;
+    color: var(--cream);
+
+    &:hover {
+      background: #fff;
+      color: var(--green-deep);
+    }
+  }
+
+  &-ghost {
+    color: var(--ink);
+    border: 1px solid currentColor;
+
+    &:hover {
+      background: var(--ink);
+      color: var(--cream);
+    }
+  }
+}
+
+.link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: transform 0.5s var(--easing);
+  }
+
+  &:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+
+  .ar {
+    transition: transform 0.4s var(--easing);
+  }
+
+  &:hover .ar {
+    transform: translateX(6px);
+  }
+}

@@ -1,0 +1,30 @@
+.divider {
+  background: var(--cream);
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+
+  svg {
+    width: 260px;
+    height: auto;
+  }
+
+  svg path,
+  svg line,
+  svg circle {
+    stroke: var(--magenta);
+    fill: none;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: var(--len, 800);
+    stroke-dashoffset: var(--len, 800);
+    transition: stroke-dashoffset 2.2s var(--easing);
+  }
+
+  &.is-on svg path,
+  &.is-on svg line,
+  &.is-on svg circle {
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,43 @@
+.marquee {
+  background: var(--magenta);
+  color: #fff;
+  overflow: hidden;
+  border-block: 1px solid rgba(255, 255, 255, 0.18);
+  height: 56px;
+  display: flex;
+  align-items: center;
+
+  &__track {
+    display: flex;
+    gap: 48px;
+    white-space: nowrap;
+    font-family: var(--display);
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    animation: marquee 38s linear infinite;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .dot {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
