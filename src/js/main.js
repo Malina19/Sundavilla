@@ -232,18 +232,18 @@
 
   // ─── Gallery + PhotoSwipe ─────────────────────────────────────────────────────
   const galleryImages = [
-    { src: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2000, alt: 'Bukiet w pastelowych odcieniach' },
-    { src: 'https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Delikatna kompozycja' },
-    { src: 'https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2400, alt: 'Polne kwiaty' },
-    { src: 'https://images.unsplash.com/photo-1508610048659-a06b669e3321?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Biała wiązanka' },
-    { src: 'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2400, alt: 'Bukiet z piwonii' },
-    { src: 'https://images.unsplash.com/photo-1469259943454-aa100abba749?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Eleganckie róże' },
-    { src: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2400, alt: 'Kwiaty w pracowni' },
-    { src: 'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Bukiet w papierze' },
-    { src: 'https://images.unsplash.com/photo-1502977249166-824b3a8a4d6d?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2400, alt: 'W wazonie' },
-    { src: 'https://images.unsplash.com/photo-1469259943454-aa100abba749?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Kompozycja w róży' },
-    { src: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 1067, alt: 'Pastelowa kompozycja' },
-    { src: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=80', w: 1600, h: 2400, alt: 'Polne kwiaty na stole' },
+    { src: './Img/Gallery_1.jpg', w: 1600, h: 2000, alt: 'Bukiet w pastelowych odcieniach' },
+    { src: './Img/Gallery_2.jpg', w: 1600, h: 1067, alt: 'Delikatna kompozycja' },
+    { src: './Img/Gallery_3.jpg', w: 1600, h: 2400, alt: 'Polne kwiaty' },
+    { src: './Img/Gallery_4_.jpg', w: 1600, h: 1067, alt: 'Biała wiązanka' },
+    { src: './Img/Gallery_5.jpg', w: 1600, h: 2400, alt: 'Bukiet z piwonii' },
+    { src: './Img/Gallery_6.jpg', w: 1600, h: 1067, alt: 'Eleganckie róże' },
+    { src: './Img/Gallery_7_.jpg', w: 1600, h: 2400, alt: 'Kwiaty w pracowni' },
+    { src: './Img/Gallery_8.jpg', w: 1600, h: 1067, alt: 'Bukiet w papierze' },
+    { src: './Img/Gallery_9.jpg', w: 1600, h: 2400, alt: 'W wazonie' },
+    { src: './Img/Gallery_10.jpg', w: 1600, h: 1067, alt: 'Kompozycja w róży' },
+    { src: './Img/Gallery_11.jpg', w: 1600, h: 1067, alt: 'Pastelowa kompozycja' },
+    { src: './Img/Gallery_12_.jpg', w: 1600, h: 2400, alt: 'Polne kwiaty na stole' },
   ];
 
   const galleryIO = new IntersectionObserver((entries) => {
@@ -285,9 +285,15 @@
       slidesPerView: 1,
       spaceBetween: 24,
       breakpoints: {
-        640:  { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-        1280: { slidesPerView: 4 },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 24,
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 28,
+          grid: { rows: 2, fill: 'row' },
+        },
       },
       pagination: { el: '.reviews .swiper-pagination', clickable: true },
     });
