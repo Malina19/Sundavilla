@@ -232,18 +232,18 @@
 
   // ─── Gallery + PhotoSwipe ─────────────────────────────────────────────────────
   const galleryImages = [
-    { src: './Img/Gallery_1.jpg', w: 1600, h: 2000, alt: 'Bukiet w pastelowych odcieniach' },
-    { src: './Img/Gallery_2.jpg', w: 1600, h: 1067, alt: 'Delikatna kompozycja' },
-    { src: './Img/Gallery_3.jpg', w: 1600, h: 2400, alt: 'Polne kwiaty' },
-    { src: './Img/Gallery_4_.jpg', w: 1600, h: 1067, alt: 'Biała wiązanka' },
-    { src: './Img/Gallery_5.jpg', w: 1600, h: 2400, alt: 'Bukiet z piwonii' },
-    { src: './Img/Gallery_6.jpg', w: 1600, h: 1067, alt: 'Eleganckie róże' },
-    { src: './Img/Gallery_7_.jpg', w: 1600, h: 2400, alt: 'Kwiaty w pracowni' },
-    { src: './Img/Gallery_8.jpg', w: 1600, h: 1067, alt: 'Bukiet w papierze' },
-    { src: './Img/Gallery_9.jpg', w: 1600, h: 2400, alt: 'W wazonie' },
-    { src: './Img/Gallery_10.jpg', w: 1600, h: 1067, alt: 'Kompozycja w róży' },
-    { src: './Img/Gallery_11.jpg', w: 1600, h: 1067, alt: 'Pastelowa kompozycja' },
-    { src: './Img/Gallery_12_.jpg', w: 1600, h: 2400, alt: 'Polne kwiaty na stole' },
+    { src: './Img/Gallery_1.jpg',  w: 1024, h: 987,  alt: 'Bukiet w pastelowych odcieniach' },
+    { src: './Img/Gallery_2.jpg',  w: 768,  h: 1024, alt: 'Delikatna kompozycja' },
+    { src: './Img/Gallery_3.jpg',  w: 3024, h: 4032, alt: 'Polne kwiaty' },
+    { src: './Img/Gallery_4_.jpg', w: 3024, h: 4032, alt: 'Biała wiązanka' },
+    { src: './Img/Gallery_5.jpg',  w: 3024, h: 4032, alt: 'Bukiet z piwonii' },
+    { src: './Img/Gallery_6.jpg',  w: 3024, h: 4032, alt: 'Eleganckie róże' },
+    { src: './Img/Gallery_7_.jpg', w: 3024, h: 4032, alt: 'Kwiaty w pracowni' },
+    { src: './Img/Gallery_8.jpg',  w: 3024, h: 4032, alt: 'Bukiet w papierze' },
+    { src: './Img/Gallery_9.jpg',  w: 4284, h: 5712, alt: 'W wazonie' },
+    { src: './Img/Gallery_10.jpg', w: 3024, h: 4032, alt: 'Kompozycja w róży' },
+    { src: './Img/Gallery_11.jpg', w: 3024, h: 4032, alt: 'Pastelowa kompozycja' },
+    { src: './Img/Gallery_12_.jpg',w: 3024, h: 4032, alt: 'Polne kwiaty na stole' },
   ];
 
   const galleryIO = new IntersectionObserver((entries) => {
