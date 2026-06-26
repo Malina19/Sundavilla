@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init('FB41naf9YGA9bYH6m');
+  }
+
   const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
@@ -331,6 +335,16 @@
     el.addEventListener('blur', () => setFilled(el));
   });
 
+  // Blokada cyfr w imieniu i nazwisko
+  document.getElementById('f-name').addEventListener('input', function () {
+    this.value = this.value.replace(/[0-9]/g, '');
+  });
+
+  // Tylko cyfry i znaki telefonu
+  document.getElementById('f-phone').addEventListener('input', function () {
+    this.value = this.value.replace(/[^0-9+\-() ]/g, '');
+  });
+
   // Autosize textarea
   document.querySelectorAll('[data-autosize]').forEach(t => {
     const resize = () => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 280) + 'px'; };
@@ -347,8 +361,8 @@
     let ok = true;
     status.classList.remove('show', 'is-success', 'is-error');
 
-    // Required fields
-    ['f-name', 'f-phone', 'f-occ', 'f-date'].forEach(id => {
+    // Wymagane pola tekstowe / select / data / wiadomość
+    ['f-name', 'f-phone', 'f-occ', 'f-date', 'f-msg'].forEach(id => {
       const el    = document.getElementById(id);
       const f     = el.closest('.field');
       const valid = !!(el.value && el.value.trim().length > 0);
@@ -356,13 +370,17 @@
       if (!valid) ok = false;
     });
 
-    // Optional email format check
-    const em = document.getElementById('f-email');
-    if (em.value.trim()) {
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
-      em.closest('.field').classList.toggle('has-error', !valid);
-      if (!valid) ok = false;
-    }
+    // Email — wymagany i poprawny format
+    const em      = document.getElementById('f-email');
+    const emValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+    em.closest('.field').classList.toggle('has-error', !emValid);
+    if (!emValid) ok = false;
+
+    // Budżet — wymagany i nieujemny
+    const bud      = document.getElementById('f-budget');
+    const budValid = bud.value.trim() !== '' && Number(bud.value) >= 0;
+    bud.closest('.field').classList.toggle('has-error', !budValid);
+    if (!budValid) ok = false;
 
     // RODO checkbox
     const rodo = document.getElementById('f-rodo');
@@ -378,13 +396,38 @@
       return;
     }
 
-    // Success (replace with real fetch/API call)
-    const payload = Object.fromEntries(new FormData(form).entries());
-    console.log('[Sundavilla] form submit:', payload);
+    const btn         = form.querySelector('[type="submit"]');
+    const btnOriginal = btn.innerHTML;
+    btn.disabled  = true;
+    btn.innerHTML = 'Wysyłanie… <span aria-hidden="true">⟳</span>';
 
-    status.querySelector('.text').textContent = 'Dziękujemy! Skontaktujemy się wkrótce.';
-    status.classList.add('show', 'is-success');
-    form.reset();
-    form.querySelectorAll('.field').forEach(f => f.classList.remove('is-filled', 'has-error'));
+    const done = (success) => {
+      btn.disabled  = false;
+      btn.innerHTML = btnOriginal;
+      if (success) {
+        status.querySelector('.text').textContent = 'Dziękujemy! Skontaktujemy się wkrótce.';
+        status.classList.add('show', 'is-success');
+        form.reset();
+        form.querySelectorAll('.field').forEach(f => f.classList.remove('is-filled', 'has-error'));
+      } else {
+        status.querySelector('.text').textContent = 'Coś poszło nie tak. Zadzwoń do nas lub spróbuj ponownie.';
+        status.classList.add('show', 'is-error');
+      }
+    };
+
+    emailjs.sendForm('service_x19a3yn', 'template_00pymrm', form)
+      .then(() => {
+        // autoodpowiedź do klienta (uzupełnij AUTOREPLY_TEMPLATE_ID)
+        const email    = document.getElementById('f-email').value.trim();
+        const name     = document.getElementById('f-name').value.trim();
+        const occasion = document.getElementById('f-occ').value;
+        const date     = document.getElementById('f-date').value;
+        const budget   = document.getElementById('f-budget').value;
+        if (email && typeof emailjs !== 'undefined') {
+          emailjs.send('service_x19a3yn', 'template_2rtae9h', { name, email, occasion, date, budget });
+        }
+        done(true);
+      })
+      .catch(() => done(false));
   });
 })();
