@@ -345,6 +345,14 @@
     this.value = this.value.replace(/[^0-9+\-() ]/g, '');
   });
 
+  // Budżet — po opuszczeniu pola sprawdź, czy kwota nie jest niższa niż minimum
+  document.getElementById('f-budget').addEventListener('blur', function () {
+    const field = this.closest('.field');
+    if (this.value.trim() !== '' && Number(this.value) < 50) {
+      field.classList.add('has-error');
+    }
+  });
+
   // Autosize textarea
   document.querySelectorAll('[data-autosize]').forEach(t => {
     const resize = () => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 280) + 'px'; };
@@ -376,9 +384,9 @@
     em.closest('.field').classList.toggle('has-error', !emValid);
     if (!emValid) ok = false;
 
-    // Budżet — wymagany i nieujemny
+    // Budżet — wymagany, min. 50 zł
     const bud      = document.getElementById('f-budget');
-    const budValid = bud.value.trim() !== '' && Number(bud.value) >= 0;
+    const budValid = bud.value.trim() !== '' && Number(bud.value) >= 50;
     bud.closest('.field').classList.toggle('has-error', !budValid);
     if (!budValid) ok = false;
 
