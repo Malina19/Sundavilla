@@ -42,6 +42,7 @@
     burger.classList.remove('is-open');
     menu.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Otwórz menu');
     document.body.style.overflow = '';
   };
 
@@ -49,6 +50,7 @@
     const open = menu.classList.toggle('is-open');
     burger.classList.toggle('is-open', open);
     burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
     document.body.style.overflow = open ? 'hidden' : '';
   });
 
@@ -236,18 +238,18 @@
 
   // ─── Gallery + PhotoSwipe ─────────────────────────────────────────────────────
   const galleryImages = [
-    { src: './Img/Gallery_1.jpg',  w: 1024, h: 987,  alt: 'Bukiet w pastelowych odcieniach' },
-    { src: './Img/Gallery_2.jpg',  w: 768,  h: 1024, alt: 'Delikatna kompozycja' },
-    { src: './Img/Gallery_3.jpg',  w: 3024, h: 4032, alt: 'Polne kwiaty' },
-    { src: './Img/Gallery_4_.jpg', w: 3024, h: 4032, alt: 'Biała wiązanka' },
-    { src: './Img/Gallery_5.jpg',  w: 3024, h: 4032, alt: 'Bukiet z piwonii' },
-    { src: './Img/Gallery_6.jpg',  w: 3024, h: 4032, alt: 'Eleganckie róże' },
-    { src: './Img/Gallery_7_.jpg', w: 3024, h: 4032, alt: 'Kwiaty w pracowni' },
-    { src: './Img/Gallery_8.jpg',  w: 3024, h: 4032, alt: 'Bukiet w papierze' },
-    { src: './Img/Gallery_9.jpg',  w: 4284, h: 5712, alt: 'W wazonie' },
-    { src: './Img/Gallery_10.jpg', w: 3024, h: 4032, alt: 'Kompozycja w róży' },
-    { src: './Img/Gallery_11.jpg', w: 3024, h: 4032, alt: 'Pastelowa kompozycja' },
-    { src: './Img/Gallery_12_.jpg',w: 3024, h: 4032, alt: 'Polne kwiaty na stole' },
+    { src: './Img/Gallery_1.webp',  w: 1000, h: 964,  alt: 'Bukiet w pastelowych odcieniach' },
+    { src: './Img/Gallery_2.webp',  w: 768,  h: 1024, alt: 'Delikatna kompozycja' },
+    { src: './Img/Gallery_3.webp',  w: 1000, h: 1333, alt: 'Polne kwiaty' },
+    { src: './Img/Gallery_4_.webp', w: 1000, h: 1333, alt: 'Biała wiązanka' },
+    { src: './Img/Gallery_5.webp',  w: 1000, h: 1333, alt: 'Bukiet z piwonii' },
+    { src: './Img/Gallery_6.webp',  w: 1000, h: 1333, alt: 'Eleganckie róże' },
+    { src: './Img/Gallery_7_.webp', w: 1000, h: 1333, alt: 'Kwiaty w pracowni' },
+    { src: './Img/Gallery_8.webp',  w: 1000, h: 1333, alt: 'Bukiet w papierze' },
+    { src: './Img/Gallery_9.webp',  w: 1000, h: 1333, alt: 'W wazonie' },
+    { src: './Img/Gallery_10.webp', w: 1000, h: 1333, alt: 'Kompozycja w róży' },
+    { src: './Img/Gallery_11.webp', w: 1000, h: 1333, alt: 'Pastelowa kompozycja' },
+    { src: './Img/Gallery_12_.webp',w: 1000, h: 1333, alt: 'Polne kwiaty na stole' },
   ];
 
   const galleryIO = new IntersectionObserver((entries) => {
@@ -327,6 +329,7 @@
       setFilled(el);
       el.closest('.field')?.classList.remove('has-error');
       el.closest('.checkbox')?.classList.remove('has-error');
+      el.setAttribute('aria-invalid', 'false');
     });
     el.addEventListener('change', () => {
       setFilled(el);
@@ -375,6 +378,7 @@
       const f     = el.closest('.field');
       const valid = !!(el.value && el.value.trim().length > 0);
       f.classList.toggle('has-error', !valid);
+      el.setAttribute('aria-invalid', String(!valid));
       if (!valid) ok = false;
     });
 
@@ -382,12 +386,14 @@
     const em      = document.getElementById('f-email');
     const emValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
     em.closest('.field').classList.toggle('has-error', !emValid);
+    em.setAttribute('aria-invalid', String(!emValid));
     if (!emValid) ok = false;
 
     // Budżet — wymagany, min. 50 zł
     const bud      = document.getElementById('f-budget');
     const budValid = bud.value.trim() !== '' && Number(bud.value) >= 50;
     bud.closest('.field').classList.toggle('has-error', !budValid);
+    bud.setAttribute('aria-invalid', String(!budValid));
     if (!budValid) ok = false;
 
     // RODO checkbox

@@ -51,6 +51,10 @@
   }
 
   &__copy {
+    .script {
+      font-size: 24px;
+    }
+
     h2 {
       margin: 18px 0 30px;
       font-size: clamp(38px, 5.4vw, 64px);

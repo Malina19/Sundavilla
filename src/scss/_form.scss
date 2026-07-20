@@ -130,13 +130,13 @@
   }
 
   .req {
-    color: var(--magenta);
+    color: var(--magenta-text);
   }
 
   .err {
     display: none;
     font-size: 12px;
-    color: var(--magenta);
+    color: var(--magenta-text);
     margin-top: 6px;
     letter-spacing: 0.04em;
   }
@@ -153,7 +153,7 @@
     border-bottom-color: var(--magenta);
 
     label {
-      color: var(--magenta);
+      color: var(--magenta-text);
     }
 
     .err {
@@ -216,6 +216,6 @@
   }
 
   &.has-error {
-    color: var(--magenta);
+    color: var(--magenta-text);
   }
 }

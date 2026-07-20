@@ -18,11 +18,15 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
 
   <!-- Vendor CSS -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <!-- Main CSS (compiled from src/scss/main.scss) -->
   <link rel="stylesheet" href="dist/css/main.css" />
+
+  <!-- Preload LCP image (hero) -->
+  <link rel="preload" as="image" href="./Img/main.webp" fetchpriority="high" />
 </head>
 
 <body>
@@ -89,7 +93,8 @@
         </div>
         <div class="hero__right">
           <div class="hero__media clip-reveal" id="hero-media">
-            <img src="./Img/main.jpg" alt="Bukiet ślubny w naturalnych odcieniach" id="hero-img" />
+            <img src="./Img/main.webp" alt="Bukiet ślubny w naturalnych odcieniach" id="hero-img" width="1800"
+              height="2400" fetchpriority="high" />
           </div>
         </div>
       </div>
@@ -115,10 +120,11 @@
       <div class="container about__grid">
         <div class="about__images">
           <div class="a clip-reveal">
-            <img src="./Img/About_us_picture.jpg" alt="Bukiet" loading="lazy" />
+            <img src="./Img/About_us_picture.webp" alt="Bukiet" loading="lazy" width="1000" height="1333" />
           </div>
           <div class="b clip-reveal" style="transition-delay:.15s;">
-            <img src="./Img/About_us_picture_1.JPG" alt="Bukiet w kopercie" loading="lazy" />
+            <img src="./Img/About_us_picture_1.webp" alt="Bukiet w kopercie" loading="lazy" width="1000"
+              height="1333" />
           </div>
         </div>
         <div class="about__copy">
@@ -166,7 +172,7 @@
 
           <article class="offer-card" data-cursor>
             <div class="offer-card__img">
-              <img src="./Img/Wedding.jpg" alt="Bukiet ślubny" loading="lazy" />
+              <img src="./Img/Wedding.webp" alt="Bukiet ślubny" loading="lazy" width="900" height="1200" />
             </div>
             <span class="offer-card__cat">na ślub</span>
             <h3>Bukiety ślubne</h3>
@@ -187,7 +193,7 @@
 
           <article class="offer-card" data-cursor>
             <div class="offer-card__img">
-              <img src="./Img/Funeral.jpg" alt="Wiązanka pogrzebowa" loading="lazy" />
+              <img src="./Img/Funeral.webp" alt="Wiązanka pogrzebowa" loading="lazy" width="900" height="675" />
             </div>
             <span class="offer-card__cat">w smutku</span>
             <h3>Pogrzebowe</h3>
@@ -197,7 +203,7 @@
 
           <article class="offer-card" data-cursor>
             <div class="offer-card__img">
-              <img src="./Img/occasional.jpg" alt="Bukiet okazjonalny" loading="lazy" />
+              <img src="./Img/occasional.webp" alt="Bukiet okazjonalny" loading="lazy" width="900" height="900" />
             </div>
             <span class="offer-card__cat">na świętowanie</span>
             <h3>Okazjonalne</h3>
@@ -207,7 +213,7 @@
 
           <article class="offer-card" data-cursor>
             <div class="offer-card__img">
-              <img src="./Img/Gift.jpg" alt="Bukiet prezentowy" loading="lazy" />
+              <img src="./Img/Gift.webp" alt="Bukiet prezentowy" loading="lazy" width="900" height="1125" />
             </div>
             <span class="offer-card__cat">jako prezent</span>
             <h3>Prezentowe</h3>
@@ -217,7 +223,7 @@
 
           <article class="offer-card" data-cursor>
             <div class="offer-card__img">
-              <img src="./Img/business.jpg" alt="Dekoracje biznesowe" loading="lazy" />
+              <img src="./Img/business.webp" alt="Dekoracje biznesowe" loading="lazy" width="900" height="1200" />
             </div>
             <span class="offer-card__cat">do biura</span>
             <h3>Biznesowe</h3>
@@ -373,7 +379,7 @@
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3041.748263951973!2d19.894606676808603!3d50.00603311926287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165d1a5e1f59a5%3A0x75203d762fb1666!2sKwiaciarnia%20Sundavilla.kwiaty!5e1!3m2!1spl!2spl!4v1781005238807!5m2!1spl!2spl"
               width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+              referrerpolicy="no-referrer-when-downgrade" title="Mapa – lokalizacja Sundavilla, ul. Komuny Paryskiej 1a, Kraków"></iframe>
           </div>
         </div>
 
@@ -386,26 +392,29 @@
           <div class="form__row two">
             <div class="field">
               <label for="f-name">Imię i nazwisko <span class="req">*</span></label>
-              <input type="text" id="f-name" name="name" autocomplete="name" required />
-              <span class="err">Podaj imię i nazwisko.</span>
+              <input type="text" id="f-name" name="name" autocomplete="name" required aria-describedby="err-name"
+                aria-invalid="false" />
+              <span class="err" id="err-name">Podaj imię i nazwisko.</span>
             </div>
             <div class="field">
               <label for="f-phone">Telefon <span class="req">*</span></label>
-              <input type="tel" id="f-phone" name="phone" autocomplete="tel" required />
-              <span class="err">Podaj numer telefonu.</span>
+              <input type="tel" id="f-phone" name="phone" autocomplete="tel" required aria-describedby="err-phone"
+                aria-invalid="false" />
+              <span class="err" id="err-phone">Podaj numer telefonu.</span>
             </div>
           </div>
 
           <div class="form__row two">
             <div class="field">
               <label for="f-email">Email <span class="req">*</span></label>
-              <input type="email" id="f-email" name="email" autocomplete="email" required />
-              <span class="err">Niepoprawny adres email.</span>
+              <input type="email" id="f-email" name="email" autocomplete="email" required aria-describedby="err-email"
+                aria-invalid="false" />
+              <span class="err" id="err-email">Niepoprawny adres email.</span>
             </div>
             <div class="field field--select">
               <label for="f-occ">Okazja <span class="req">*</span></label>
-              <select id="f-occ" name="occasion" required>
-                <option value=""></option>
+              <select id="f-occ" name="occasion" required aria-describedby="err-occ" aria-invalid="false">
+                <option value="" disabled selected>Wybierz okazję</option>
                 <option>Bukiet ślubny</option>
                 <option>Bukiet komunijny</option>
                 <option>Wiązanka pogrzebowa</option>
@@ -416,27 +425,30 @@
                 <option>Dekoracja biznesowa</option>
                 <option>Inne</option>
               </select>
-              <span class="err">Wybierz okazję.</span>
+              <span class="err" id="err-occ">Wybierz okazję.</span>
             </div>
           </div>
 
           <div class="form__row two">
             <div class="field field--date">
               <label for="f-date">Data realizacji <span class="req">*</span></label>
-              <input type="date" id="f-date" name="date" required />
-              <span class="err">Wybierz datę.</span>
+              <input type="date" id="f-date" name="date" required aria-describedby="err-date" aria-invalid="false" />
+              <span class="err" id="err-date">Wybierz datę.</span>
             </div>
             <div class="field">
               <label for="f-budget">Budżet (zł) <span class="req">*</span></label>
-              <input type="number" id="f-budget" name="budget" min="50" step="10" required />
-              <span class="err">Minimalna kwota zamówienia to 50 zł.</span>
+              <input type="number" id="f-budget" name="budget" min="50" step="10" required
+                aria-describedby="err-budget" aria-invalid="false" />
+              <span class="err" id="err-budget">Minimalna kwota zamówienia to 50 zł.</span>
             </div>
           </div>
 
           <div class="form__row">
             <div class="field">
               <label for="f-msg">Wiadomość <span class="req">*</span></label>
-              <textarea id="f-msg" name="message" rows="1" data-autosize required></textarea>
+              <textarea id="f-msg" name="message" rows="1" data-autosize required aria-describedby="err-msg"
+                aria-invalid="false"></textarea>
+              <span class="err" id="err-msg">Napisz kilka słów o swojej okazji.</span>
             </div>
           </div>
 
