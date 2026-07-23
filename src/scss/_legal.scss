@@ -1,0 +1,120 @@
+.legal-page {
+  background: var(--cream);
+  padding: calc(var(--header-h) + 56px) 0 120px;
+
+  @media (min-width: 1024px) {
+    padding: calc(var(--header-h) + 80px) 0 160px;
+  }
+
+  &__back {
+    color: var(--ink-mute);
+
+    .ar {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+  }
+
+  &__head {
+    max-width: 68ch;
+    margin: 28px 0 56px;
+
+    h1 {
+      margin: 12px 0 0;
+      font-size: clamp(36px, 5.4vw, 64px);
+      color: var(--ink);
+    }
+  }
+
+  &__meta {
+    margin: 18px 0 0;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+  }
+
+  &__body {
+    max-width: 68ch;
+    color: var(--ink);
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-variation-settings: "opsz" 60, "SOFT" 60, "WONK" 0;
+      font-size: clamp(20px, 2.6vw, 26px);
+      color: var(--ink);
+      margin: 52px 0 14px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--ink-mute);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0 0 16px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      li {
+        position: relative;
+        padding-left: 20px;
+        color: var(--ink-mute);
+        font-size: 16px;
+        line-height: 1.6;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 2px;
+          top: 10px;
+          width: 5px;
+          height: 5px;
+          border-radius: 999px;
+          background: var(--magenta);
+        }
+      }
+    }
+
+    strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    a {
+      color: var(--magenta-text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: var(--ink);
+      }
+    }
+
+    .legal-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 0 0 16px;
+
+      p {
+        margin: 0 0 4px;
+        color: var(--ink);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

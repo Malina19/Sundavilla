@@ -9,7 +9,9 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(npx sass *)",
-      "Bash(git restore *)"
+      "Bash(git restore *)",
+      "Bash(find /tmp -maxdepth 3 -newer /tmp/httpserver3.log -type f 2>/dev/null | head -50; echo \"---appdata temp---\"; find \"/c/Users/dawid/AppData/Local/Temp\" -maxdepth 2 -mmin -30 -type f 2>/dev/null | grep -iE \"\\\\.png|\\\\.jpg|\\\\.jpeg|\\\\.webp|\\\\.ico|\\\\.gif\" | head -50)",
+      "Read(//c/Users/dawid/AppData/Local/Temp/**)"
     ]
   }
 }

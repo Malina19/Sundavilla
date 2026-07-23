@@ -201,7 +201,7 @@
   });
 
   // ─── Hero image parallax (GSAP) ───────────────────────────────────────────────
-  if (!reduced && typeof gsap !== 'undefined') {
+  if (!reduced && typeof gsap !== 'undefined' && document.getElementById('hero-img')) {
     gsap.to('#hero-img', {
       yPercent: -8,
       ease: 'none',
@@ -215,8 +215,9 @@
   }
 
   // ─── Offer horizontal scroll (desktop only) ───────────────────────────────────
-  if (!reduced && typeof gsap !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches) {
-    const track = document.getElementById('offer-track');
+  const offerTrack = document.getElementById('offer-track');
+  if (!reduced && offerTrack && typeof gsap !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches) {
+    const track = offerTrack;
     const bar   = document.getElementById('offer-bar');
 
     const totalWidth = () => track.scrollWidth - window.innerWidth + 96;
@@ -237,56 +238,58 @@
   }
 
   // ─── Gallery + PhotoSwipe ─────────────────────────────────────────────────────
-  const galleryImages = [
-    { src: './Img/Gallery_1.webp',  w: 1000, h: 964,  alt: 'Bukiet w pastelowych odcieniach' },
-    { src: './Img/Gallery_2.webp',  w: 768,  h: 1024, alt: 'Delikatna kompozycja' },
-    { src: './Img/Gallery_3.webp',  w: 1000, h: 1333, alt: 'Polne kwiaty' },
-    { src: './Img/Gallery_4_.webp', w: 1000, h: 1333, alt: 'Biała wiązanka' },
-    { src: './Img/Gallery_5.webp',  w: 1000, h: 1333, alt: 'Bukiet z piwonii' },
-    { src: './Img/Gallery_6.webp',  w: 1000, h: 1333, alt: 'Eleganckie róże' },
-    { src: './Img/Gallery_7_.webp', w: 1000, h: 1333, alt: 'Kwiaty w pracowni' },
-    { src: './Img/Gallery_8.webp',  w: 1000, h: 1333, alt: 'Bukiet w papierze' },
-    { src: './Img/Gallery_9.webp',  w: 1000, h: 1333, alt: 'W wazonie' },
-    { src: './Img/Gallery_10.webp', w: 1000, h: 1333, alt: 'Kompozycja w róży' },
-    { src: './Img/Gallery_11.webp', w: 1000, h: 1333, alt: 'Pastelowa kompozycja' },
-    { src: './Img/Gallery_12_.webp',w: 1000, h: 1333, alt: 'Polne kwiaty na stole' },
-  ];
-
-  const galleryIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-on');
-      galleryIO.unobserve(e.target);
-    });
-  }, { threshold: 0 });
-
   const grid = document.getElementById('gallery');
-  galleryImages.forEach((img) => {
-    const a       = document.createElement('a');
-    a.className   = 'gallery__item clip-reveal';
-    a.href        = img.src;
-    a.setAttribute('data-pswp-width',  img.w);
-    a.setAttribute('data-pswp-height', img.h);
-    a.setAttribute('data-cursor', '');
-    a.innerHTML   = `<img src="${img.src.replace('w=1600', 'w=900')}" alt="${img.alt}" loading="lazy" width="${img.w}" height="${img.h}" />`;
-    grid.appendChild(a);
+  if (grid) {
+    const galleryImages = [
+      { src: './Img/Gallery_1.webp',  w: 1000, h: 964,  alt: 'Bukiet w pastelowych odcieniach' },
+      { src: './Img/Gallery_2.webp',  w: 768,  h: 1024, alt: 'Delikatna kompozycja' },
+      { src: './Img/Gallery_3.webp',  w: 1000, h: 1333, alt: 'Polne kwiaty' },
+      { src: './Img/Gallery_4_.webp', w: 1000, h: 1333, alt: 'Biała wiązanka' },
+      { src: './Img/Gallery_5.webp',  w: 1000, h: 1333, alt: 'Bukiet z piwonii' },
+      { src: './Img/Gallery_6.webp',  w: 1000, h: 1333, alt: 'Eleganckie róże' },
+      { src: './Img/Gallery_7_.webp', w: 1000, h: 1333, alt: 'Kwiaty w pracowni' },
+      { src: './Img/Gallery_8.webp',  w: 1000, h: 1333, alt: 'Bukiet w papierze' },
+      { src: './Img/Gallery_9.webp',  w: 1000, h: 1333, alt: 'W wazonie' },
+      { src: './Img/Gallery_10.webp', w: 1000, h: 1333, alt: 'Kompozycja w róży' },
+      { src: './Img/Gallery_11.webp', w: 1000, h: 1333, alt: 'Pastelowa kompozycja' },
+      { src: './Img/Gallery_12_.webp',w: 1000, h: 1333, alt: 'Polne kwiaty na stole' },
+    ];
 
-    if (reduced) a.classList.add('is-on');
-    else galleryIO.observe(a);
-  });
+    const galleryIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-on');
+        galleryIO.unobserve(e.target);
+      });
+    }, { threshold: 0 });
 
-  if (typeof PhotoSwipeLightbox !== 'undefined') {
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: '#gallery',
-      children: 'a',
-      pswpModule: PhotoSwipe,
-      bgOpacity: 0.95,
+    galleryImages.forEach((img) => {
+      const a       = document.createElement('a');
+      a.className   = 'gallery__item clip-reveal';
+      a.href        = img.src;
+      a.setAttribute('data-pswp-width',  img.w);
+      a.setAttribute('data-pswp-height', img.h);
+      a.setAttribute('data-cursor', '');
+      a.innerHTML   = `<img src="${img.src.replace('w=1600', 'w=900')}" alt="${img.alt}" loading="lazy" width="${img.w}" height="${img.h}" />`;
+      grid.appendChild(a);
+
+      if (reduced) a.classList.add('is-on');
+      else galleryIO.observe(a);
     });
-    lightbox.init();
+
+    if (typeof PhotoSwipeLightbox !== 'undefined') {
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: '#gallery',
+        children: 'a',
+        pswpModule: PhotoSwipe,
+        bgOpacity: 0.95,
+      });
+      lightbox.init();
+    }
   }
 
   // ─── Reviews Swiper ───────────────────────────────────────────────────────────
-  if (typeof Swiper !== 'undefined') {
+  if (typeof Swiper !== 'undefined' && document.getElementById('reviews-swiper')) {
     new Swiper('#reviews-swiper', {
       slidesPerView: 1,
       spaceBetween: 24,
@@ -317,131 +320,133 @@
   const form   = document.getElementById('formularz');
   const status = document.getElementById('form-status');
 
-  const setFilled = (input) => {
-    const field = input.closest('.field');
-    if (!field) return;
-    field.classList.toggle('is-filled', !!(input.value && input.value.trim().length > 0));
-  };
-
-  form.querySelectorAll('input, select, textarea').forEach(el => {
-    setFilled(el);
-    el.addEventListener('input',  () => {
-      setFilled(el);
-      el.closest('.field')?.classList.remove('has-error');
-      el.closest('.checkbox')?.classList.remove('has-error');
-      el.setAttribute('aria-invalid', 'false');
-    });
-    el.addEventListener('change', () => {
-      setFilled(el);
-      el.closest('.checkbox')?.classList.remove('has-error');
-    });
-    el.addEventListener('blur', () => setFilled(el));
-  });
-
-  // Blokada cyfr w imieniu i nazwisko
-  document.getElementById('f-name').addEventListener('input', function () {
-    this.value = this.value.replace(/[0-9]/g, '');
-  });
-
-  // Tylko cyfry i znaki telefonu
-  document.getElementById('f-phone').addEventListener('input', function () {
-    this.value = this.value.replace(/[^0-9+\-() ]/g, '');
-  });
-
-  // Budżet — po opuszczeniu pola sprawdź, czy kwota nie jest niższa niż minimum
-  document.getElementById('f-budget').addEventListener('blur', function () {
-    const field = this.closest('.field');
-    if (this.value.trim() !== '' && Number(this.value) < 50) {
-      field.classList.add('has-error');
-    }
-  });
-
-  // Autosize textarea
-  document.querySelectorAll('[data-autosize]').forEach(t => {
-    const resize = () => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 280) + 'px'; };
-    t.addEventListener('input', resize);
-    resize();
-  });
-
-  // Date min = today
-  const dEl = document.getElementById('f-date');
-  if (dEl) dEl.min = new Date().toISOString().split('T')[0];
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let ok = true;
-    status.classList.remove('show', 'is-success', 'is-error');
-
-    // Wymagane pola tekstowe / select / data / wiadomość
-    ['f-name', 'f-phone', 'f-occ', 'f-date', 'f-msg'].forEach(id => {
-      const el    = document.getElementById(id);
-      const f     = el.closest('.field');
-      const valid = !!(el.value && el.value.trim().length > 0);
-      f.classList.toggle('has-error', !valid);
-      el.setAttribute('aria-invalid', String(!valid));
-      if (!valid) ok = false;
-    });
-
-    // Email — wymagany i poprawny format
-    const em      = document.getElementById('f-email');
-    const emValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
-    em.closest('.field').classList.toggle('has-error', !emValid);
-    em.setAttribute('aria-invalid', String(!emValid));
-    if (!emValid) ok = false;
-
-    // Budżet — wymagany, min. 50 zł
-    const bud      = document.getElementById('f-budget');
-    const budValid = bud.value.trim() !== '' && Number(bud.value) >= 50;
-    bud.closest('.field').classList.toggle('has-error', !budValid);
-    bud.setAttribute('aria-invalid', String(!budValid));
-    if (!budValid) ok = false;
-
-    // RODO checkbox
-    const rodo = document.getElementById('f-rodo');
-    const lab  = rodo.closest('.checkbox');
-    lab.classList.toggle('has-error', !rodo.checked);
-    if (!rodo.checked) ok = false;
-
-    if (!ok) {
-      status.querySelector('.text').textContent = 'Sprawdź zaznaczone pola i spróbuj ponownie.';
-      status.classList.add('show', 'is-error');
-      const first = form.querySelector('.has-error input, .has-error select, .has-error textarea');
-      if (first) first.focus();
-      return;
-    }
-
-    const btn         = form.querySelector('[type="submit"]');
-    const btnOriginal = btn.innerHTML;
-    btn.disabled  = true;
-    btn.innerHTML = 'Wysyłanie… <span aria-hidden="true">⟳</span>';
-
-    const done = (success) => {
-      btn.disabled  = false;
-      btn.innerHTML = btnOriginal;
-      if (success) {
-        status.querySelector('.text').textContent = 'Dziękujemy! Skontaktujemy się wkrótce.';
-        status.classList.add('show', 'is-success');
-        form.reset();
-        form.querySelectorAll('.field').forEach(f => f.classList.remove('is-filled', 'has-error'));
-      } else {
-        status.querySelector('.text').textContent = 'Coś poszło nie tak. Zadzwoń do nas lub spróbuj ponownie.';
-        status.classList.add('show', 'is-error');
-      }
+  if (form) {
+    const setFilled = (input) => {
+      const field = input.closest('.field');
+      if (!field) return;
+      field.classList.toggle('is-filled', !!(input.value && input.value.trim().length > 0));
     };
 
-    emailjs.sendForm('service_x19a3yn', 'template_00pymrm', form)
-      .then(() => {
-        // autoodpowiedź do klienta (uzupełnij AUTOREPLY_TEMPLATE_ID)
-        const email    = document.getElementById('f-email').value.trim();
-        const name     = document.getElementById('f-name').value.trim();
-        const occasion = document.getElementById('f-occ').value;
-        const date     = document.getElementById('f-date').value;
-        const budget   = document.getElementById('f-budget').value;
-        if (email && typeof emailjs !== 'undefined') {
-          emailjs.send('service_x19a3yn', 'template_2rtae9h', { name, email, occasion, date, budget });
+    form.querySelectorAll('input, select, textarea').forEach(el => {
+      setFilled(el);
+      el.addEventListener('input',  () => {
+        setFilled(el);
+        el.closest('.field')?.classList.remove('has-error');
+        el.closest('.checkbox')?.classList.remove('has-error');
+        el.setAttribute('aria-invalid', 'false');
+      });
+      el.addEventListener('change', () => {
+        setFilled(el);
+        el.closest('.checkbox')?.classList.remove('has-error');
+      });
+      el.addEventListener('blur', () => setFilled(el));
+    });
+
+    // Blokada cyfr w imieniu i nazwisko
+    document.getElementById('f-name').addEventListener('input', function () {
+      this.value = this.value.replace(/[0-9]/g, '');
+    });
+
+    // Tylko cyfry i znaki telefonu
+    document.getElementById('f-phone').addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9+\-() ]/g, '');
+    });
+
+    // Budżet — po opuszczeniu pola sprawdź, czy kwota nie jest niższa niż minimum
+    document.getElementById('f-budget').addEventListener('blur', function () {
+      const field = this.closest('.field');
+      if (this.value.trim() !== '' && Number(this.value) < 50) {
+        field.classList.add('has-error');
+      }
+    });
+
+    // Autosize textarea
+    document.querySelectorAll('[data-autosize]').forEach(t => {
+      const resize = () => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 280) + 'px'; };
+      t.addEventListener('input', resize);
+      resize();
+    });
+
+    // Date min = today
+    const dEl = document.getElementById('f-date');
+    if (dEl) dEl.min = new Date().toISOString().split('T')[0];
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let ok = true;
+      status.classList.remove('show', 'is-success', 'is-error');
+
+      // Wymagane pola tekstowe / select / data / wiadomość
+      ['f-name', 'f-phone', 'f-occ', 'f-date', 'f-msg'].forEach(id => {
+        const el    = document.getElementById(id);
+        const f     = el.closest('.field');
+        const valid = !!(el.value && el.value.trim().length > 0);
+        f.classList.toggle('has-error', !valid);
+        el.setAttribute('aria-invalid', String(!valid));
+        if (!valid) ok = false;
+      });
+
+      // Email — wymagany i poprawny format
+      const em      = document.getElementById('f-email');
+      const emValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+      em.closest('.field').classList.toggle('has-error', !emValid);
+      em.setAttribute('aria-invalid', String(!emValid));
+      if (!emValid) ok = false;
+
+      // Budżet — wymagany, min. 50 zł
+      const bud      = document.getElementById('f-budget');
+      const budValid = bud.value.trim() !== '' && Number(bud.value) >= 50;
+      bud.closest('.field').classList.toggle('has-error', !budValid);
+      bud.setAttribute('aria-invalid', String(!budValid));
+      if (!budValid) ok = false;
+
+      // RODO checkbox
+      const rodo = document.getElementById('f-rodo');
+      const lab  = rodo.closest('.checkbox');
+      lab.classList.toggle('has-error', !rodo.checked);
+      if (!rodo.checked) ok = false;
+
+      if (!ok) {
+        status.querySelector('.text').textContent = 'Sprawdź zaznaczone pola i spróbuj ponownie.';
+        status.classList.add('show', 'is-error');
+        const first = form.querySelector('.has-error input, .has-error select, .has-error textarea');
+        if (first) first.focus();
+        return;
+      }
+
+      const btn         = form.querySelector('[type="submit"]');
+      const btnOriginal = btn.innerHTML;
+      btn.disabled  = true;
+      btn.innerHTML = 'Wysyłanie… <span aria-hidden="true">⟳</span>';
+
+      const done = (success) => {
+        btn.disabled  = false;
+        btn.innerHTML = btnOriginal;
+        if (success) {
+          status.querySelector('.text').textContent = 'Dziękujemy! Skontaktujemy się wkrótce.';
+          status.classList.add('show', 'is-success');
+          form.reset();
+          form.querySelectorAll('.field').forEach(f => f.classList.remove('is-filled', 'has-error'));
+        } else {
+          status.querySelector('.text').textContent = 'Coś poszło nie tak. Zadzwoń do nas lub spróbuj ponownie.';
+          status.classList.add('show', 'is-error');
         }
-        done(true);
-      })
-      .catch(() => done(false));
-  });
+      };
+
+      emailjs.sendForm('service_x19a3yn', 'template_00pymrm', form)
+        .then(() => {
+          // autoodpowiedź do klienta (uzupełnij AUTOREPLY_TEMPLATE_ID)
+          const email    = document.getElementById('f-email').value.trim();
+          const name     = document.getElementById('f-name').value.trim();
+          const occasion = document.getElementById('f-occ').value;
+          const date     = document.getElementById('f-date').value;
+          const budget   = document.getElementById('f-budget').value;
+          if (email && typeof emailjs !== 'undefined') {
+            emailjs.send('service_x19a3yn', 'template_2rtae9h', { name, email, occasion, date, budget });
+          }
+          done(true);
+        })
+        .catch(() => done(false));
+    });
+  }
 })();
