@@ -7,7 +7,7 @@
   <title>Sundavilla kwiaty — Kraków · Bukiety na każdą okazję</title>
   <meta name="description"
     content="Sundavilla — krakowska kwiaciarnia. Bukiety ślubne, komunijne, okazjonalne i wiązanki pogrzebowe. Świeże kwiaty z dostawą na terenie Krakowa." />
-  <link rel="canonical" href="https://malina19.github.io/Sundavilla/" />
+  <link rel="canonical" href="https://sundavilla.pl/" />
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" sizes="any" />
@@ -21,11 +21,11 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pl_PL" />
   <meta property="og:site_name" content="Sundavilla kwiaty" />
-  <meta property="og:url" content="https://malina19.github.io/Sundavilla/" />
+  <meta property="og:url" content="https://sundavilla.pl/" />
   <meta property="og:title" content="Sundavilla kwiaty — Kraków · Bukiety na każdą okazję" />
   <meta property="og:description"
     content="Krakowska kwiaciarnia. Bukiety ślubne, komunijne, okazjonalne i wiązanki pogrzebowe. Świeże kwiaty z dostawą na terenie Krakowa." />
-  <meta property="og:image" content="https://malina19.github.io/Sundavilla/Img/og-image.jpg" />
+  <meta property="og:image" content="https://sundavilla.pl/Img/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Bukiet kwiatów Sundavilla" />
@@ -35,7 +35,7 @@
   <meta name="twitter:title" content="Sundavilla kwiaty — Kraków · Bukiety na każdą okazję" />
   <meta name="twitter:description"
     content="Krakowska kwiaciarnia. Bukiety ślubne, komunijne, okazjonalne i wiązanki pogrzebowe. Świeże kwiaty z dostawą na terenie Krakowa." />
-  <meta name="twitter:image" content="https://malina19.github.io/Sundavilla/Img/og-image.jpg" />
+  <meta name="twitter:image" content="https://sundavilla.pl/Img/og-image.jpg" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -43,8 +43,8 @@
     "@context": "https://schema.org",
     "@type": "FloristShop",
     "name": "Sundavilla kwiaty",
-    "image": "https://malina19.github.io/Sundavilla/Img/og-image.jpg",
-    "url": "https://malina19.github.io/Sundavilla/",
+    "image": "https://sundavilla.pl/Img/og-image.jpg",
+    "url": "https://sundavilla.pl/",
     "telephone": "+48666030933",
     "email": "sundavilla.kwiaty@gmail.com",
     "address": {
@@ -507,8 +507,11 @@
           <div class="form__row">
             <div class="field">
               <label for="f-msg">Wiadomość <span class="req">*</span></label>
-              <textarea id="f-msg" name="message" rows="1" data-autosize required aria-describedby="err-msg"
-                aria-invalid="false"></textarea>
+              <textarea id="f-msg" name="message" rows="1" data-autosize required
+                placeholder="Opowiedz nam o szczegółach zamówienia (kolor, rozmiar, ilość...)"
+                aria-describedby="hint-msg err-msg" aria-invalid="false"></textarea>
+              <span class="hint" id="hint-msg">Im więcej szczegółów podasz (kolor, rozmiar, materiał), tym szybciej
+                przygotujemy wycenę.</span>
               <span class="err" id="err-msg">Napisz kilka słów o swojej okazji.</span>
             </div>
           </div>

@@ -133,6 +133,15 @@
     color: var(--magenta-text);
   }
 
+  .hint {
+    display: block;
+    font-size: 10px;
+    color: var(--ink-mute);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
   .err {
     display: none;
     font-size: 12px;

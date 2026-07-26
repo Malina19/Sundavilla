@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://malina19.github.io/Sundavilla/sitemap.xml
+Sitemap: https://sundavilla.pl/sitemap.xml
