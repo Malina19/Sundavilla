@@ -108,6 +108,10 @@
     font-size: 13px;
     color: rgba(255, 255, 255, 0.55);
     letter-spacing: 0.04em;
+
+    a:hover {
+      color: #fff;
+    }
   }
 
   &__legal {
