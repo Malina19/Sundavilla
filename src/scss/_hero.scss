@@ -139,6 +139,37 @@
     }
   }
 
+  // Hero reveal — czysty CSS, startuje przy pierwszym renderze.
+  // Nie czeka na JS (main.js ładuje się po vendorach), więc nie opóźnia LCP.
+  .word-stagger .word > span {
+    transform: none;
+    transition: none;
+    animation: hero-rise 0.9s var(--easing) both;
+    animation-delay: calc(0.15s + var(--i, 0) * 0.08s);
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: hero-fade 0.9s var(--easing) both;
+    animation-delay: calc(0.5s + var(--i, 0) * 0.12s);
+  }
+
+  .clip-reveal {
+    clip-path: none;
+    transition: none;
+    animation: hero-clip 1.3s var(--easing) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .word-stagger .word > span,
+    .fade-up,
+    .clip-reveal {
+      animation: none;
+    }
+  }
+
   &__index {
     position: absolute;
     top: calc(var(--header-h) + 8px);
@@ -154,4 +185,19 @@
       right: 48px;
     }
   }
+}
+
+@keyframes hero-rise {
+  from { transform: translateY(110%); }
+  to   { transform: none; }
+}
+
+@keyframes hero-fade {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes hero-clip {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
 }

@@ -85,36 +85,6 @@
     });
   }
 
-  // ─── Custom cursor ────────────────────────────────────────────────────────────
-  if (!reduced && !isCoarse) {
-    const c  = document.getElementById('cursor');
-    const r  = document.getElementById('cursor-ring');
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    let rx = mx, ry = my;
-
-    window.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      c.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-    });
-
-    const tick = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      r.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-      requestAnimationFrame(tick);
-    };
-    tick();
-
-    document.querySelectorAll('[data-cursor], a, button, input, textarea, select').forEach(el => {
-      el.addEventListener('mouseenter', () => { c.classList.add('is-hover');    r.classList.add('is-hover'); });
-      el.addEventListener('mouseleave', () => { c.classList.remove('is-hover'); r.classList.remove('is-hover'); });
-    });
-  } else {
-    document.getElementById('cursor').style.display      = 'none';
-    document.getElementById('cursor-ring').style.display = 'none';
-  }
-
   // ─── Magnetic buttons ─────────────────────────────────────────────────────────
   if (!reduced && !isCoarse) {
     document.querySelectorAll('.magnetic').forEach(el => {
@@ -158,6 +128,8 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
   document.querySelectorAll('.fade-up, .clip-reveal, .word-stagger').forEach(el => {
+    // Hero animuje się samym CSS-em (_hero.scss)
+    if (el.closest('.hero')) return;
     if (reduced) { el.classList.add('is-on'); return; }
     // .a i .b w about__images są position:absolute — obserwujemy rodzica, nie je
     if (el.closest('.about__images')) return;
@@ -179,26 +151,7 @@
     }
   }
 
-  // Fire hero reveals immediately
-  requestAnimationFrame(() => {
-    document.documentElement.classList.add('is-ready');
-
-    const h1 = document.getElementById('hero-h1');
-    if (h1) {
-      h1.classList.add('is-on');
-      [...h1.querySelectorAll('.word > span')].forEach((s, i) => {
-        s.style.transitionDelay = (0.15 + i * 0.08) + 's';
-      });
-    }
-
-    const hm = document.getElementById('hero-media');
-    if (hm) hm.classList.add('is-on');
-
-    document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
-      el.style.transitionDelay = (0.5 + i * 0.12) + 's';
-      el.classList.add('is-on');
-    });
-  });
+  requestAnimationFrame(() => document.documentElement.classList.add('is-ready'));
 
   // ─── Hero image parallax (GSAP) ───────────────────────────────────────────────
   if (!reduced && typeof gsap !== 'undefined' && document.getElementById('hero-img')) {
@@ -269,8 +222,11 @@
       a.href        = img.src;
       a.setAttribute('data-pswp-width',  img.w);
       a.setAttribute('data-pswp-height', img.h);
-      a.setAttribute('data-cursor', '');
-      a.innerHTML   = `<img src="${img.src.replace('w=1600', 'w=900')}" alt="${img.alt}" loading="lazy" width="${img.w}" height="${img.h}" />`;
+      // Miniatura z wariantów 480/720 px; PhotoSwipe (href) otwiera oryginał
+      const base    = img.src.replace('.webp', '');
+      a.innerHTML   = `<img src="${base}-480.webp" srcset="${base}-480.webp 480w, ${base}-720.webp 720w, ${img.src} ${img.w}w"
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, calc(100vw - 48px)"
+        alt="${img.alt}" loading="lazy" width="${img.w}" height="${img.h}" />`;
       grid.appendChild(a);
 
       if (reduced) a.classList.add('is-on');
@@ -327,7 +283,7 @@
       field.classList.toggle('is-filled', !!(input.value && input.value.trim().length > 0));
     };
 
-    form.querySelectorAll('input, select, textarea').forEach(el => {
+    form.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach(el => {
       setFilled(el);
       el.addEventListener('input',  () => {
         setFilled(el);
@@ -367,17 +323,37 @@
       resize();
     });
 
-    // Date min = today
-    const dEl = document.getElementById('f-date');
-    if (dEl) dEl.min = new Date().toISOString().split('T')[0];
+    // Data i godzina odbioru — min = teraz (czas lokalny, format YYYY-MM-DDTHH:MM)
+    const dEl    = document.getElementById('f-date');
+    const dOut   = document.getElementById('f-date-out');
+    const pad    = (n) => String(n).padStart(2, '0');
+    const toLocalInput = (d) =>
+      `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    dEl.min = toLocalInput(new Date());
+
+    // Poprawny termin: nie w przeszłości, pn–sob, 07:30–20:30
+    const validPickup = (value) => {
+      if (!value) return false;
+      const d = new Date(value);
+      if (isNaN(d) || d < new Date()) return false;
+      const mins = d.getHours() * 60 + d.getMinutes();
+      return d.getDay() !== 0 && mins >= 7 * 60 + 30 && mins <= 20 * 60 + 30;
+    };
+
+    // Np. „czwartek, 25.09.2026, godz. 14:30” — trafia do maila jako {{date}}
+    const formatPickup = (value) => {
+      const d = new Date(value);
+      const day = d.toLocaleDateString('pl-PL', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+      return `${day}, godz. ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       let ok = true;
       status.classList.remove('show', 'is-success', 'is-error');
 
-      // Wymagane pola tekstowe / select / data / wiadomość
-      ['f-name', 'f-phone', 'f-occ', 'f-date', 'f-msg'].forEach(id => {
+      // Wymagane pola tekstowe / select / wiadomość
+      ['f-name', 'f-phone', 'f-occ', 'f-msg'].forEach(id => {
         const el    = document.getElementById(id);
         const f     = el.closest('.field');
         const valid = !!(el.value && el.value.trim().length > 0);
@@ -385,6 +361,13 @@
         el.setAttribute('aria-invalid', String(!valid));
         if (!valid) ok = false;
       });
+
+      // Data i godzina odbioru
+      const dValid = validPickup(dEl.value);
+      dEl.closest('.field').classList.toggle('has-error', !dValid);
+      dEl.setAttribute('aria-invalid', String(!dValid));
+      if (!dValid) ok = false;
+      dOut.value = dValid ? formatPickup(dEl.value) : '';
 
       // Email — wymagany i poprawny format
       const em      = document.getElementById('f-email');
@@ -439,7 +422,7 @@
           const email    = document.getElementById('f-email').value.trim();
           const name     = document.getElementById('f-name').value.trim();
           const occasion = document.getElementById('f-occ').value;
-          const date     = document.getElementById('f-date').value;
+          const date     = dOut.value;
           const budget   = document.getElementById('f-budget').value;
           if (email && typeof emailjs !== 'undefined') {
             emailjs.send('service_x19a3yn', 'template_2rtae9h', { name, email, occasion, date, budget });
